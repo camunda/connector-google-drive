@@ -42,7 +42,7 @@
       "type": "String",
       "binding": {
         "type": "zeebe:input",
-        "name": "token"
+        "name": "authentication.token"
       },
       "constraints": {
         "notEmpty": true
@@ -77,8 +77,8 @@
       "group": "compose",
       "type": "Text",
       "binding": {
-        "type": "zeebe:taskHeader",
-        "key": "folder.additionalProperties"
+        "type": "zeebe:input",
+        "name": "folder.additionalProperties"
       }
     },
     {

@@ -1,8 +1,8 @@
-package io.camunda.connector;
+package io.camunda.connector.dgrive.model;
 
 import java.util.Objects;
 
-public class MyConnectorResult {
+public class GoogleDriveResult {
 
   // TODO: define connector result properties, which are returned to the process engine
   private String myProperty;
@@ -23,7 +23,7 @@ public class MyConnectorResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    final MyConnectorResult that = (MyConnectorResult) o;
+    final GoogleDriveResult that = (GoogleDriveResult) o;
     return Objects.equals(myProperty, that.myProperty);
   }
 
