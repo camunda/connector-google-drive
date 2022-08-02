@@ -30,18 +30,14 @@ public class GoogleDriveRequest implements ConnectorInput {
   @Override
   public void validateWith(final Validator validator) {
     validator.require(authentication, "Authentication");
-    if (authentication != null) {
-      authentication.validateWith(validator);
-    }
+    validateIfNotNull(authentication, validator);
     validator.require(folder, "Folder creation params");
-    if (folder != null) {
-      folder.validateWith(validator);
-    }
+    validateIfNotNull(folder, validator);
   }
 
   @Override
   public void replaceSecrets(final SecretStore secretStore) {
-    authentication.replaceSecrets(secretStore);
+    replaceSecretsIfNotNull(authentication, secretStore);
   }
 
   public Authentication getAuthentication() {
