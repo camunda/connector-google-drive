@@ -21,16 +21,17 @@ import com.google.api.client.util.Key;
 import io.camunda.connector.api.ConnectorInput;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
-import io.camunda.connector.gdrive.model.request.auth.BearerAuthentication;
+import io.camunda.connector.gdrive.model.request.auth.Authentication;
+
 import java.util.Objects;
 
 public class GoogleDriveRequest implements ConnectorInput {
-  @Key private String token;
-  @Key private String clientId;
-  @Key private String clientSecret;
-  @Key private String refreshToken;
+//  @Key private String token;
+//  @Key private String clientId;
+//  @Key private String clientSecret;
+//  @Key private String refreshToken;
 
-  @Key private BearerAuthentication bearerAuthentication;
+  @Key private Authentication authentication;
   @Key private Resource resource;
 
   @Override
@@ -42,17 +43,17 @@ public class GoogleDriveRequest implements ConnectorInput {
 
   @Override
   public void replaceSecrets(final SecretStore secretStore) {
-    token = secretStore.replaceSecret(token);
+//    token = secretStore.replaceSecret(token);
     replaceSecretsIfNotNull(resource, secretStore);
   }
 
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(final String token) {
-    this.token = token;
-  }
+//  public String getToken() {
+//    return token;
+//  }
+//
+//  public void setToken(final String token) {
+//    this.token = token;
+//  }
 
   public Resource getResource() {
     return resource;
@@ -62,21 +63,35 @@ public class GoogleDriveRequest implements ConnectorInput {
     this.resource = resource;
   }
 
+//  @Override
+//  public boolean equals(final Object o) {
+//    if (this == o) {
+//      return true;
+//    }
+//    if (o == null || getClass() != o.getClass()) {
+//      return false;
+//    }
+//    final GoogleDriveRequest request = (GoogleDriveRequest) o;
+//    return Objects.equals(token, request.token) && Objects.equals(resource, request.resource);
+//  }
+//
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(token, resource);
+//  }
+
+
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final GoogleDriveRequest request = (GoogleDriveRequest) o;
-    return Objects.equals(token, request.token) && Objects.equals(resource, request.resource);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GoogleDriveRequest that = (GoogleDriveRequest) o;
+    return Objects.equals(authentication, that.authentication) && Objects.equals(resource, that.resource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(token, resource);
+    return Objects.hash(authentication, resource);
   }
 
   @Override
