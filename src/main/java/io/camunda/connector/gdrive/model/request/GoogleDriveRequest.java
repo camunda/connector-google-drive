@@ -21,47 +21,48 @@ import com.google.api.client.util.Key;
 import io.camunda.connector.api.ConnectorInput;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
-import io.camunda.connector.gdrive.model.request.auth.Authentication;
+
 import java.util.Objects;
 
 public class GoogleDriveRequest implements ConnectorInput {
 
-    @Key private String token;
-  //  @Key private String clientId;
-  //  @Key private String clientSecret;
-  //  @Key private String refreshToken;
-
-  @Key private Authentication authentication;
+  private String type;
+  @Key private String token;
+  @Key private String clientId;
+  @Key private String clientSecret;
+  @Key private String refreshToken;
   @Key private Resource resource;
 
   @Override
   public void validateWith(final Validator validator) {
-    //    validator.require(token, "Token");
-    //    validateIfNotNull();
+    if (type == AuthenticationType.BEARER.name()) {
+      validator.require(token, "Token");
+    } else if (type == AuthenticationType.REFRESH.name()){
+      validator.require(clientId, "ClientId");
+      validator.require(clientSecret, "ClientSecret");
+      validator.require(refreshToken, "RefreshToken");
+    }
     validateIfNotNull(resource, validator);
   }
 
   @Override
   public void replaceSecrets(final SecretStore secretStore) {
-    //    token = secretStore.replaceSecret(token);
+    if (type == AuthenticationType.BEARER.name()) {
+      token = secretStore.replaceSecret(token);
+    } else if (type == AuthenticationType.REFRESH.name()) {
+      clientId = secretStore.replaceSecret(clientId);
+      clientSecret = secretStore.replaceSecret(clientSecret);
+      refreshToken = secretStore.replaceSecret(refreshToken);
+    }
     replaceSecretsIfNotNull(resource, secretStore);
   }
 
-    public String getToken() {
-      return token;
-    }
-
-    public void setToken(final String token) {
-      this.token = token;
-    }
-
-
-  public Authentication getAuthentication() {
-    return authentication;
+  public String getToken() {
+    return token;
   }
 
-  public void setAuthentication(Authentication authentication) {
-    this.authentication = authentication;
+  public void setToken(final String token) {
+    this.token = token;
   }
 
   public Resource getResource() {
@@ -72,35 +73,21 @@ public class GoogleDriveRequest implements ConnectorInput {
     this.resource = resource;
   }
 
-  //  @Override
-  //  public boolean equals(final Object o) {
-  //    if (this == o) {
-  //      return true;
-  //    }
-  //    if (o == null || getClass() != o.getClass()) {
-  //      return false;
-  //    }
-  //    final GoogleDriveRequest request = (GoogleDriveRequest) o;
-  //    return Objects.equals(token, request.token) && Objects.equals(resource, request.resource);
-  //  }
-  //
-  //  @Override
-  //  public int hashCode() {
-  //    return Objects.hash(token, resource);
-  //  }
-
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GoogleDriveRequest that = (GoogleDriveRequest) o;
-    return Objects.equals(authentication, that.authentication)
-        && Objects.equals(resource, that.resource);
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final GoogleDriveRequest request = (GoogleDriveRequest) o;
+    return Objects.equals(token, request.token) && Objects.equals(resource, request.resource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(authentication, resource);
+    return Objects.hash(token, resource);
   }
 
   @Override
