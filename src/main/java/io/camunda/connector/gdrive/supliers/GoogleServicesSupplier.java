@@ -26,10 +26,11 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public final class GoogleServicesSupplier {
   private static final Logger LOGGER = LoggerFactory.getLogger(GoogleServicesSupplier.class);
@@ -53,12 +54,19 @@ public final class GoogleServicesSupplier {
   }
 
   private static HttpCredentialsAdapter getHttpHttpCredentialsAdapter(final String token) {
+    // TODO: changes here for reshesh token
     return new HttpCredentialsAdapter(createGoogleCredentials(token));
   }
 
   private static GoogleCredentials createGoogleCredentials(final String token) {
     AccessToken accessToken = new AccessToken(token, null);
     return new GoogleCredentials(accessToken).createScoped(DriveScopes.DRIVE);
+  }
+
+  private static GoogleCredentials createGoogleCredentialsRefreshToken(String clientId,
+                                                                       String clientSecret,
+                                                                       String refreshToken) {
+    return null;
   }
 
   private static NetHttpTransport getNetHttpTransport() {

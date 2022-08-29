@@ -21,15 +21,23 @@ import com.google.api.client.util.Key;
 import io.camunda.connector.api.ConnectorInput;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
+import io.camunda.connector.gdrive.model.request.auth.BearerAuthentication;
+
 import java.util.Objects;
 
 public class GoogleDriveRequest implements ConnectorInput {
   @Key private String token;
+  @Key private String clientId;
+  @Key private String clientSecret;
+  @Key private String refreshToken;
+
+  @Key private BearerAuthentication bearerAuthentication;
   @Key private Resource resource;
 
   @Override
   public void validateWith(final Validator validator) {
-    validator.require(token, "Token");
+//    validator.require(token, "Token");
+//    validateIfNotNull();
     validateIfNotNull(resource, validator);
   }
 
