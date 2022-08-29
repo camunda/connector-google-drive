@@ -19,7 +19,6 @@ package io.camunda.connector.gdrive.model.request.auth;
 import com.google.api.client.util.Key;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
-
 import java.util.Objects;
 
 public class BearerAuthentication extends Authentication {
@@ -60,8 +59,6 @@ public class BearerAuthentication extends Authentication {
 
   @Override
   public String toString() {
-    return "BearerAuthentication{" +
-            "token='" + token + '\'' +
-            '}';
+    return "BearerAuthentication{" + "token='" + token + '\'' + '}';
   }
 }

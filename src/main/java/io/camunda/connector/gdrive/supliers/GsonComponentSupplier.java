@@ -36,15 +36,13 @@ public final class GsonComponentSupplier {
   private static final GsonFactory GSON_FACTORY = new GsonFactory();
 
   private static final Gson GSON =
-          new GsonBuilder()
-                  .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
-                  .registerTypeAdapterFactory(
-                          RuntimeTypeAdapterFactory.of(Authentication.class, "type")
-                                  .registerSubtype(BearerAuthentication.class, "bearer")
-                                  .registerSubtype(RefreshTokenAuthentication.class, "refresh"))
-                  .create();
-
-
+      new GsonBuilder()
+          .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+          .registerTypeAdapterFactory(
+              RuntimeTypeAdapterFactory.of(Authentication.class, "type")
+                  .registerSubtype(BearerAuthentication.class, "bearer")
+                  .registerSubtype(RefreshTokenAuthentication.class, "refresh"))
+          .create();
 
   public static JsonFactory getJsonFactory() {
     return JSON_FACTORY;

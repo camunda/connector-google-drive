@@ -25,9 +25,10 @@ import io.camunda.connector.gdrive.model.GoogleDriveResult;
 import io.camunda.connector.gdrive.model.request.GoogleDriveRequest;
 import io.camunda.connector.gdrive.supliers.GoogleServicesSupplier;
 import io.camunda.connector.gdrive.supliers.GsonComponentSupplier;
-import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public class GoogleDriveFunction implements ConnectorFunction {
   private static final Logger LOGGER = LoggerFactory.getLogger(GoogleDriveFunction.class);
@@ -62,6 +63,7 @@ public class GoogleDriveFunction implements ConnectorFunction {
     }
   }
 
+  // Rewrite to handle both bearer and refresh
   private GoogleDriveResult executeConnector(final GoogleDriveRequest request) {
     LOGGER.debug("Executing my connector with request {}", request);
     GoogleDriveClient drive =

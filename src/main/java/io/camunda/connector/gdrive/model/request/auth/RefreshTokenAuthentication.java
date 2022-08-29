@@ -19,7 +19,6 @@ package io.camunda.connector.gdrive.model.request.auth;
 import com.google.api.client.util.Key;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
-
 import java.util.Objects;
 
 public class RefreshTokenAuthentication extends Authentication {
@@ -72,7 +71,9 @@ public class RefreshTokenAuthentication extends Authentication {
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
     RefreshTokenAuthentication that = (RefreshTokenAuthentication) o;
-    return clientId.equals(that.clientId) && clientSecret.equals(that.clientSecret) && refreshToken.equals(that.refreshToken);
+    return clientId.equals(that.clientId)
+        && clientSecret.equals(that.clientSecret)
+        && refreshToken.equals(that.refreshToken);
   }
 
   @Override
@@ -82,10 +83,16 @@ public class RefreshTokenAuthentication extends Authentication {
 
   @Override
   public String toString() {
-    return "RefreshTokenAuthentication{" +
-            "clientId='" + clientId + '\'' +
-            ", clientSecret='" + clientSecret + '\'' +
-            ", refreshToken='" + refreshToken + '\'' +
-            '}';
+    return "RefreshTokenAuthentication{"
+        + "clientId='"
+        + clientId
+        + '\''
+        + ", clientSecret='"
+        + clientSecret
+        + '\''
+        + ", refreshToken='"
+        + refreshToken
+        + '\''
+        + '}';
   }
 }
