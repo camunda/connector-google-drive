@@ -22,7 +22,6 @@ import io.camunda.connector.api.ConnectorInput;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
 import io.camunda.connector.gdrive.model.request.auth.BearerAuthentication;
-
 import java.util.Objects;
 
 public class GoogleDriveRequest implements ConnectorInput {
@@ -36,8 +35,8 @@ public class GoogleDriveRequest implements ConnectorInput {
 
   @Override
   public void validateWith(final Validator validator) {
-//    validator.require(token, "Token");
-//    validateIfNotNull();
+    //    validator.require(token, "Token");
+    //    validateIfNotNull();
     validateIfNotNull(resource, validator);
   }
 

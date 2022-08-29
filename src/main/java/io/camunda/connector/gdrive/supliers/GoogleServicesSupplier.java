@@ -63,9 +63,8 @@ public final class GoogleServicesSupplier {
     return new GoogleCredentials(accessToken).createScoped(DriveScopes.DRIVE);
   }
 
-  private static GoogleCredentials createGoogleCredentialsRefreshToken(String clientId,
-                                                                       String clientSecret,
-                                                                       String refreshToken) {
+  private static GoogleCredentials createGoogleCredentialsRefreshToken(
+      String clientId, String clientSecret, String refreshToken) {
     return null;
   }
 

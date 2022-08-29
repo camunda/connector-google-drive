@@ -19,12 +19,32 @@ package io.camunda.connector.gdrive.supliers;
 
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.ToNumberPolicy;
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
+import io.camunda.connector.gdrive.model.request.auth.Authentication;
+import io.camunda.connector.gdrive.model.request.auth.BearerAuthentication;
+import io.camunda.connector.gdrive.model.request.auth.RefreshTokenAuthentication;
 
 public final class GsonComponentSupplier {
 
+  private GsonComponentSupplier() {}
+
   private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-  private GsonComponentSupplier() {}
+  private static final GsonFactory GSON_FACTORY = new GsonFactory();
+
+  private static final Gson GSON =
+          new GsonBuilder()
+                  .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+                  .registerTypeAdapterFactory(
+                          RuntimeTypeAdapterFactory.of(Authentication.class, "type")
+                                  .registerSubtype(BearerAuthentication.class, "bearer")
+                                  .registerSubtype(RefreshTokenAuthentication.class, "refresh"))
+                  .create();
+
+
 
   public static JsonFactory getJsonFactory() {
     return JSON_FACTORY;
