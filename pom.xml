@@ -8,7 +8,7 @@
     <relativePath/>
   </parent>
 
-  <name>connector-template</name>
+  <name>connector-google-drive</name>
   <description>Camunda Template Connector</description>
   <artifactId>connector-google-drive</artifactId>
   <packaging>jar</packaging>
